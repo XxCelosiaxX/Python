@@ -1,14 +1,10 @@
 import csv
 
-re = 0
 heroCount = 0
 comicCount = 0
 heroList = []
 comicList = []
 
-def incrementR():
-    global re
-    re = re + 1
 
 def incrementH():
     global heroCount
@@ -53,13 +49,11 @@ def ListSearch(searchfor, searchIn, counter):
         else:
             high = mid - 1
     print("counter", counter)
-    return -1
+    # return -1                          # This should never happen because all should exist
 
 def matrixInsert(hero,comic):
-    #row - col
-    matrix[comic][hero] = True
-    incrementR()
-    #print(re)
+    # [row][col]
+    matrix[hero][comic] = True
 
 def read2():
     number = 0
@@ -76,10 +70,45 @@ def read2():
             if heroindex != -1 and comicindex != -1:
                 matrixInsert(heroindex, comicindex)
 
-def ColCount():                                 #[work in progress]
-    for i in 12651:
-        for j in 6439:
-        matrix[][]
+
+
+def ColCount():                             # how many comic per hero
+    min = float("inf")
+    max = 0
+    mean = 0
+    for i in range(0, 6438):
+        counter = 0
+        for j in range(12650):
+            if matrix[i][j]:
+                counter += 1
+        if min >= counter:
+            min = counter
+        if max < counter:
+            max = counter
+        mean+= counter
+        mean /= 12650
+    print("Max comic per hero is ", max)
+    print("Min comic per hero is ", min)
+    print("Avg comic per hero is ", mean)
+
+def RowCount():                           #how many hero is in a comic
+    min = float("inf")
+    max = 0
+    mean = 0
+    for i in range(0, 12650):
+        counter = 0
+        for j in range(6438):
+            if matrix[j][i]:
+                counter += 1
+        if min >= counter:
+            min = counter
+        if max < counter:
+            max = counter
+        mean += counter
+        mean /= 6438
+    print("Max hero in comic is ", max)
+    print("Min hero in comic is ", min)
+    print("Avg hero in comic is ", mean)
 
 
 
@@ -87,7 +116,13 @@ def ColCount():                                 #[work in progress]
 readIn()
 comicList.sort()
 heroList.sort()
-matrix = [[None]*6439]*12651
+#matrix = [[None]*6439]*12651
+#matrix = [["Test"]*12651]*6439
+matrix = [[False for i in range(12650)]for j in range(6438)]
 print("start Read2")
 read2()
+print("start ColCount")
+ColCount()
+print("start RowCount")
+RowCount()
 print("end")
