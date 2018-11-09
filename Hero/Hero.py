@@ -4,6 +4,11 @@ heroCount = 0
 comicCount = 0
 heroList = []
 comicList = []
+re = 0
+
+def incrementR():
+    global re
+    re = re + 1
 
 
 def incrementH():
@@ -54,6 +59,8 @@ def ListSearch(searchfor, searchIn, counter):
 def matrixInsert(hero,comic):
     # [row][col]
     matrix[hero][comic] = True
+    incrementR()
+    print(re)
 
 def read2():
     number = 0
@@ -67,7 +74,9 @@ def read2():
             currentcomic = row[1]
             heroindex = ListSearch(currenthero, heroList, number)
             comicindex = ListSearch(currentcomic, comicList, number)
-            if heroindex != -1 and comicindex != -1:
+            if heroindex > 6437 or comicindex > 12650:
+                print(row[0])
+            elif heroindex != -1 and comicindex != -1:
                 matrixInsert(heroindex, comicindex)
 
 
@@ -86,7 +95,7 @@ def ColCount():                             # how many comic per hero
         if max < counter:
             max = counter
         mean+= counter
-        mean /= 12650
+        mean /= 12651
     print("Max comic per hero is ", max)
     print("Min comic per hero is ", min)
     print("Avg comic per hero is ", mean)
@@ -105,7 +114,7 @@ def RowCount():                           #how many hero is in a comic
         if max < counter:
             max = counter
         mean += counter
-        mean /= 6438
+        mean /= 6439
     print("Max hero in comic is ", max)
     print("Min hero in comic is ", min)
     print("Avg hero in comic is ", mean)
@@ -120,6 +129,10 @@ heroList.sort()
 #matrix = [["Test"]*12651]*6439
 matrix = [[False for i in range(12650)]for j in range(6438)]
 print("start Read2")
+h = heroList.index('CAPTAIN MARVEL II/MO')
+print(h)
+c = comicList.index("CMS 1")
+print(c)
 read2()
 print("start ColCount")
 ColCount()
