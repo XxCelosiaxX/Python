@@ -58,9 +58,11 @@ def ListSearch(searchfor, searchIn, counter):
 
 def matrixInsert(hero,comic):
     # [row][col]
+    print ("The hero number:", hero)
+    print ("The comic number:", comic)
     matrix[hero][comic] = True
-    incrementR()
-    print(re)
+ #   incrementR()
+ #   print(re)
 
 def read2():
     number = 0
@@ -69,14 +71,14 @@ def read2():
         line_count = 0
         heroindex = 0
         for row in csv_reader:
-            number+=1
+            number += 1
             currenthero = row[0]
             currentcomic = row[1]
             heroindex = ListSearch(currenthero, heroList, number)
             comicindex = ListSearch(currentcomic, comicList, number)
-            if heroindex > 6437 or comicindex > 12650:
-                print(row[0])
-            elif heroindex != -1 and comicindex != -1:
+#            if heroindex > 6437 or comicindex > 12650:
+ #               print(row[0])
+            if heroindex != -1 and comicindex != -1:
                 matrixInsert(heroindex, comicindex)
 
 
@@ -95,7 +97,7 @@ def ColCount():                             # how many comic per hero
         if max < counter:
             max = counter
         mean+= counter
-        mean /= 12651
+    mean /= 6438
     print("Max comic per hero is ", max)
     print("Min comic per hero is ", min)
     print("Avg comic per hero is ", mean)
@@ -114,7 +116,7 @@ def RowCount():                           #how many hero is in a comic
         if max < counter:
             max = counter
         mean += counter
-        mean /= 6439
+    mean /= 12650
     print("Max hero in comic is ", max)
     print("Min hero in comic is ", min)
     print("Avg hero in comic is ", mean)
@@ -127,12 +129,8 @@ comicList.sort()
 heroList.sort()
 #matrix = [[None]*6439]*12651
 #matrix = [["Test"]*12651]*6439
-matrix = [[False for i in range(12650)]for j in range(6438)]
+matrix = [[False for i in range(12651)]for j in range(6439)]
 print("start Read2")
-h = heroList.index('CAPTAIN MARVEL II/MO')
-print(h)
-c = comicList.index("CMS 1")
-print(c)
 read2()
 print("start ColCount")
 ColCount()
